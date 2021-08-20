@@ -14,12 +14,11 @@ const teddiesDisplay = async () => {
   for (teddy in teddies) {
     let teddyCard = document.createElement("div");
     document.querySelector(".products").appendChild(teddyCard);
-    // teddyCard.classList.add("card");
     teddyCard.classList.add("teddyCard");
 
     let teddyLink = document.createElement("a");
     teddyCard.appendChild(teddyLink);
-    teddyLink.classList.add("stretched-link");
+    teddyLink.href = `produit.html?id=${teddies[teddy]._id}`;
 
     let teddyImg = document.createElement("img");
     teddyLink.appendChild(teddyImg);
@@ -28,25 +27,15 @@ const teddiesDisplay = async () => {
 
     let teddyCardBody = document.createElement("div");
     teddyLink.appendChild(teddyCardBody);
-    // teddyCardBody.classList.add("card-body");
 
     let teddyName = document.createElement("h3");
     teddyCardBody.appendChild(teddyName);
-    // teddyName.classList.add("card-title");
     teddyName.innerHTML = teddies[teddy].name;
 
     let teddyPrice = document.createElement("p");
     teddyCardBody.appendChild(teddyPrice);
-    // teddyPrice.classList.add("card-text");
-    teddyPrice.innerHTML = teddies[teddy].price / 100 + " €";
+    teddyPrice.innerHTML = (teddies[teddy].price / 100).toFixed(2) + " €";
   }
-
-  //   document.body.innerHTML = teddies.map(
-  //     (teddy) =>
-  //       `
-  //       <h3>${teddy.name}</h3>
-  //       `
-  //   );
 };
 
 teddiesDisplay();
