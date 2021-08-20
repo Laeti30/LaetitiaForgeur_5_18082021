@@ -39,15 +39,74 @@ const teddyDisplay = async () => {
   teddyCardBody.appendChild(teddyPrice);
   teddyPrice.innerText = (teddy.price / 100).toFixed(2) + " €";
 
+  let teddyCustom = document.createElement("div");
+  teddyCardBody.appendChild(teddyCustom);
+  teddyCustom.classList.add("teddyCustom");
+
   let teddyQuantityLabel = document.createElement("label");
-  teddyCardBody.appendChild(teddyQuantityLabel);
+  teddyCustom.appendChild(teddyQuantityLabel);
   teddyQuantityLabel.for = "quantity";
-  teddyQuantityLabel.innerText = "Quantité";
+  teddyQuantityLabel.innerText = "Quantité :";
 
   let teddyQuantityInput = document.createElement("input");
-  teddyCardBody.appendChild(teddyQuantityInput);
+  teddyQuantityLabel.appendChild(teddyQuantityInput);
   teddyQuantityInput.type = "number";
   teddyQuantityInput.id = "quantity";
+  teddyQuantityInput.value = 1;
+  teddyQuantityInput.min = 1;
+  teddyQuantityInput.classList.add("teddyQuantityInput");
+
+  let teddyColorLabel = document.createElement("label");
+  teddyCustom.appendChild(teddyColorLabel);
+  teddyColorLabel.for = "color";
+  teddyColorLabel.innerText = "Choisissez la couleur : ";
+
+  let teddyColorList = document.createElement("select");
+  teddyColorLabel.appendChild(teddyColorList);
+  teddyColorList.id = "color";
+
+  let teddyColorOption1 = document.createElement("option");
+  teddyColorList.appendChild(teddyColorOption1);
+  teddyColorOption1.value = "blanc";
+  teddyColorOption1.innerText = "Blanc";
+  let teddyColorOption2 = document.createElement("option");
+  teddyColorList.appendChild(teddyColorOption2);
+  teddyColorOption2.value = "beige";
+  teddyColorOption2.innerText = "Beige";
+  let teddyColorOption3 = document.createElement("option");
+  teddyColorList.appendChild(teddyColorOption3);
+  teddyColorOption3.value = "marron";
+  teddyColorOption3.innerText = "Marron";
+  let teddyColorOption4 = document.createElement("option");
+  teddyColorList.appendChild(teddyColorOption4);
+  teddyColorOption4.value = "noir";
+  teddyColorOption4.innerText = "Noir";
+
+  let teddyEmbroideryLabel = document.createElement("label");
+  teddyCustom.appendChild(teddyEmbroideryLabel);
+  teddyEmbroideryLabel.for = "embroidery";
+  teddyEmbroideryLabel.innerText = "Saisissez le nom à broder : ";
+
+  let teddyEmbroideryInput = document.createElement("input");
+  teddyEmbroideryLabel.appendChild(teddyEmbroideryInput);
+  teddyEmbroideryInput.type = "text";
+  teddyEmbroideryInput.id = "embroidery";
+  teddyEmbroideryInput.placeholder = "ex.: Lucas";
+  teddyEmbroideryInput.classList.add("teddyEmbroideryInput");
+
+  let btnContainer = document.createElement("div");
+  teddyCard.appendChild(btnContainer);
+  btnContainer.classList.add("btnContainer");
+
+  let btn = document.createElement("a");
+  btnContainer.appendChild(btn);
+  btn.href = "index.html";
+  btn.innerHTML = "Revenir à la liste des produits";
+
+  let btnCart = document.createElement("button");
+  btnContainer.appendChild(btnCart);
+  btnCart.innerHTML = "Ajouter au panier";
+  btnCart.classList.add("btn");
 };
 
 teddyDisplay();
