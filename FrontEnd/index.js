@@ -3,7 +3,8 @@ let teddies = [];
 const fetchTeddies = async () => {
   await fetch("http://localhost:3000/api/teddies")
     .then((res) => res.json())
-    .then((data) => (teddies = data));
+    .then((data) => (teddies = data))
+    .catch((error) => console.log(err));
 
   // console.log(teddies);
 };

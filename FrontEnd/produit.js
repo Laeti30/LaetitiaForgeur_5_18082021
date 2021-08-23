@@ -5,9 +5,10 @@ let teddy = [];
 const fetchTeddy = async () => {
   await fetch(`http://localhost:3000/api/teddies/${id}`)
     .then((res) => res.json())
-    .then((data) => (teddy = data));
+    .then((data) => (teddy = data))
+    .catch((error) => console.log(err));
 
-  console.log(teddy);
+  // console.log(teddy);
 };
 
 const teddyDisplay = async () => {
@@ -51,8 +52,8 @@ const teddyDisplay = async () => {
   teddyQuantityLabel.appendChild(teddyQuantityInput);
   teddyQuantityInput.type = "number";
   teddyQuantityInput.id = "quantity";
-  teddyQuantityInput.value = 1;
-  teddyQuantityInput.min = 1;
+  teddyQuantityInput.value = "1";
+  teddyQuantityInput.min = "1";
   teddyQuantityInput.classList.add("teddyQuantityInput");
 
   let teddyColorLabel = document.createElement("label");
@@ -60,26 +61,15 @@ const teddyDisplay = async () => {
   teddyColorLabel.for = "color";
   teddyColorLabel.innerText = "Choisissez la couleur : ";
 
-  let teddyColorList = document.createElement("select");
-  teddyColorLabel.appendChild(teddyColorList);
-  teddyColorList.id = "color";
+  let teddyColorSelect = document.createElement("select");
+  teddyColorLabel.appendChild(teddyColorSelect);
+  teddyColorSelect.id = "color";
 
-  let teddyColorOption1 = document.createElement("option");
-  teddyColorList.appendChild(teddyColorOption1);
-  // teddyColorOption1.value = "value1";
-  teddyColorOption1.innerText = teddy.colors[0];
-  let teddyColorOption2 = document.createElement("option");
-  teddyColorList.appendChild(teddyColorOption2);
-  //  teddyColorOption2.value = "beige";
-  teddyColorOption2.innerText = teddy.colors[1];
-  let teddyColorOption3 = document.createElement("option");
-  teddyColorList.appendChild(teddyColorOption3);
-  // teddyColorOption3.value = "marron";
-  teddyColorOption3.innerText = teddy.colors[2];
-  let teddyColorOption4 = document.createElement("option");
-  teddyColorList.appendChild(teddyColorOption4);
-  //teddyColorOption4.value = "noir";
-  teddyColorOption4.innerText = teddy.colors[4];
+  for (let i = 0; i < teddy.colors.length; i++) {
+    let teddyColorOption = document.createElement("option");
+    teddyColorSelect.appendChild(teddyColorOption);
+    teddyColorOption.innerText = teddy.colors[i];
+  }
 
   let teddyEmbroideryLabel = document.createElement("label");
   teddyCustom.appendChild(teddyEmbroideryLabel);
@@ -92,6 +82,11 @@ const teddyDisplay = async () => {
   teddyEmbroideryInput.id = "embroidery";
   teddyEmbroideryInput.placeholder = "ex.: Lucas";
   teddyEmbroideryInput.classList.add("teddyEmbroideryInput");
+
+  let confirmBox = document.createElement("p");
+  teddyCardBody.appendChild(confirmBox);
+  confirmBox.innerText = "Votre produit a été ajouté au panier";
+  confirmBox.classList.add("confirmBox");
 
   let btnContainer = document.createElement("div");
   teddyCard.appendChild(btnContainer);
@@ -109,28 +104,42 @@ const teddyDisplay = async () => {
 
   //--------------Local Storage -----------------//
 
-  btnCart.addEventListener("click", () => {
+  btnCart.addEventListener("click", (e) => {
+    e.preventDefault();
     let teddyAdded = {
       name: teddyName.innerText,
       price: teddyPrice.innerText,
       img: teddyImg.src,
+      quantity: teddyQuantityInput.value,
       id: teddy._id,
     };
 
     let teddiesStorage = JSON.parse(localStorage.getItem("teddy"));
     // s'il y a déjà des nounours dans le localStorage
-    if (teddiesStorage == !null) {
+    if (teddiesStorage !== null) {
       teddiesStorage.push(teddyAdded);
       localStorage.setItem("teddy", JSON.stringify(teddiesStorage));
-      console.log("Pas vide");
     }
     // si le localStorage est vide
     else {
       teddiesStorage = [];
       teddiesStorage.push(teddyAdded);
       localStorage.setItem("teddy", JSON.stringify(teddiesStorage));
-      console.log("vide");
     }
+
+    document.querySelector(".confirmBox").animate(
+      [
+        //keyframes
+        { opacity: "0" },
+        { opacity: "1" },
+        { opacity: "1" },
+        { opacity: "0" },
+      ],
+      {
+        // timing options
+        duration: 5000,
+      }
+    );
   });
 };
 
