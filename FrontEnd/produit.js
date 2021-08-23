@@ -1,6 +1,5 @@
 let params = new URL(document.location).searchParams;
 let id = params.get("id");
-console.log(id);
 let teddy = [];
 
 const fetchTeddy = async () => {
@@ -67,20 +66,20 @@ const teddyDisplay = async () => {
 
   let teddyColorOption1 = document.createElement("option");
   teddyColorList.appendChild(teddyColorOption1);
-  teddyColorOption1.value = "blanc";
-  teddyColorOption1.innerText = "Blanc";
+  // teddyColorOption1.value = "value1";
+  teddyColorOption1.innerText = teddy.colors[0];
   let teddyColorOption2 = document.createElement("option");
   teddyColorList.appendChild(teddyColorOption2);
-  teddyColorOption2.value = "beige";
-  teddyColorOption2.innerText = "Beige";
+  //  teddyColorOption2.value = "beige";
+  teddyColorOption2.innerText = teddy.colors[1];
   let teddyColorOption3 = document.createElement("option");
   teddyColorList.appendChild(teddyColorOption3);
-  teddyColorOption3.value = "marron";
-  teddyColorOption3.innerText = "Marron";
+  // teddyColorOption3.value = "marron";
+  teddyColorOption3.innerText = teddy.colors[2];
   let teddyColorOption4 = document.createElement("option");
   teddyColorList.appendChild(teddyColorOption4);
-  teddyColorOption4.value = "noir";
-  teddyColorOption4.innerText = "Noir";
+  //teddyColorOption4.value = "noir";
+  teddyColorOption4.innerText = teddy.colors[4];
 
   let teddyEmbroideryLabel = document.createElement("label");
   teddyCustom.appendChild(teddyEmbroideryLabel);
@@ -103,10 +102,36 @@ const teddyDisplay = async () => {
   btn.href = "index.html";
   btn.innerHTML = "Revenir à la liste des produits";
 
-  let btnCart = document.createElement("button");
+  let btnCart = document.createElement("a");
   btnContainer.appendChild(btnCart);
   btnCart.innerHTML = "Ajouter au panier";
-  btnCart.classList.add("btn");
+  btnCart.href = "#";
+
+  //--------------Local Storage -----------------//
+
+  btnCart.addEventListener("click", () => {
+    let teddyAdded = {
+      name: teddyName.innerText,
+      price: teddyPrice.innerText,
+      img: teddyImg.src,
+      id: teddy._id,
+    };
+
+    let teddiesStorage = JSON.parse(localStorage.getItem("teddy"));
+    // s'il y a déjà des nounours dans le localStorage
+    if (teddiesStorage == !null) {
+      teddiesStorage.push(teddyAdded);
+      localStorage.setItem("teddy", JSON.stringify(teddiesStorage));
+      console.log("Pas vide");
+    }
+    // si le localStorage est vide
+    else {
+      teddiesStorage = [];
+      teddiesStorage.push(teddyAdded);
+      localStorage.setItem("teddy", JSON.stringify(teddiesStorage));
+      console.log("vide");
+    }
+  });
 };
 
 teddyDisplay();

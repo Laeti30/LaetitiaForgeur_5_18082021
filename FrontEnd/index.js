@@ -5,7 +5,7 @@ const fetchTeddies = async () => {
     .then((res) => res.json())
     .then((data) => (teddies = data));
 
-  console.log(teddies);
+  // console.log(teddies);
 };
 
 const teddiesDisplay = async () => {
