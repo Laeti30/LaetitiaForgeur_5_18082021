@@ -147,6 +147,7 @@ header nav {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  line-height: 1;
 }
 
 header a {
@@ -169,6 +170,7 @@ header h1 {
   font-size: 3em;
   padding: 0 0 20px 80px;
   margin: 0;
+  line-height: 1;
 }
 
 /*************** Main *****************/
@@ -177,6 +179,7 @@ main {
   background-color: #462100;
   font-family: Georgia, "Times New Roman", Times, serif;
   padding: 20px 0;
+  text-align: center;
 }
 
 h2 {
@@ -261,7 +264,6 @@ footer a:hover {
   border-radius: 15px;
   padding-bottom: 10px;
   margin: 0px auto;
-  /* margin: 50px auto 50px; */
   text-align: left;
   box-shadow: 5px 5px 10px rgba(110, 51, 0, 0.6);
 }
@@ -281,10 +283,12 @@ footer a:hover {
 .teddyCardBody h3 {
   font-size: 2em;
   font-weight: 600;
+  line-height: 1.5;
 }
 
 .teddyCardBody p {
   font-size: 1.25em;
+  margin: 10px auto 20px;
 }
 
 .teddyCustom {
@@ -299,6 +303,7 @@ footer a:hover {
 
 .teddyCustom label {
   font-size: 1.25em;
+  margin: 10px 0 10px 0;
 }
 
 .teddyQuantityInput {
@@ -325,13 +330,84 @@ footer a:hover {
 }
 
 .confirmBox {
-  background-color: green;
+  background-color: rgb(34, 146, 34);
   color: white;
   width: 80%;
   font-size: 0.5em;
   padding: 5px 20px;
-  margin: 10px auto 0px;
-  border-radius: 25px;
+  border-radius: 15px;
   text-align: center;
   opacity: 0;
+}
+
+/*************** Page panier *****************/
+.tableCart {
+  width: 80%;
+  margin: 0 auto;
+  color: white;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.tableCart td {
+  vertical-align: middle;
+}
+
+.tableCart img {
+  height: 120px;
+}
+
+.tableCart i {
+  cursor: pointer;
+}
+
+.totalAmount {
+  color: white;
+  font-family: "Dancing Script", cursive;
+  margin: 20px 0 30px;
+  font-size: 2em;
+}
+
+.reset {
+  background-color: #6e3300;
+  color: white;
+  cursor: pointer;
+  padding: 0.75rem 1.25rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  border-radius: 0.3rem;
+}
+
+/*************** Formulaire *****************/
+.formTitle {
+  margin-top: 80px;
+}
+
+form {
+  width: 70%;
+  margin: 20px auto;
+  text-align: left;
+}
+
+.formCol {
+  padding-left: 35px;
+  padding-right: 35px;
+}
+
+form label {
+  color: white;
+  font-family: "Dancing Script", cursive;
+  font-size: 1.5em;
+  margin-bottom: 5px;
+  padding-left: 10px;
+}
+
+form input {
+  margin-bottom: 20px;
+}
+
+.submitButton {
+  background-color: #6e3300;
+  color: white;
+  margin: 30px auto 50px;
 }

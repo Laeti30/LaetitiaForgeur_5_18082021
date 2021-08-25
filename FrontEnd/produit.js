@@ -2,6 +2,7 @@ let params = new URL(document.location).searchParams;
 let id = params.get("id");
 let teddy = [];
 
+// Récupération des données du nounours
 const fetchTeddy = async () => {
   await fetch(`http://localhost:3000/api/teddies/${id}`)
     .then((res) => res.json())
@@ -11,6 +12,7 @@ const fetchTeddy = async () => {
   // console.log(teddy);
 };
 
+// Affichage du nounours
 const teddyDisplay = async () => {
   await fetchTeddy();
 
@@ -108,7 +110,7 @@ const teddyDisplay = async () => {
     e.preventDefault();
     let teddyAdded = {
       name: teddyName.innerText,
-      price: teddyPrice.innerText,
+      price: teddy.price,
       img: teddyImg.src,
       quantity: teddyQuantityInput.value,
       id: teddy._id,
@@ -117,8 +119,13 @@ const teddyDisplay = async () => {
     let teddiesStorage = JSON.parse(localStorage.getItem("teddy"));
     // s'il y a déjà des nounours dans le localStorage
     if (teddiesStorage !== null) {
+      for (let j in teddiesStorage) {
+        if (teddiesStorage[j].name == teddyAdded.name) {
+          teddiesStorage.splice(j, 1);
+        }
+      }
       teddiesStorage.push(teddyAdded);
-      localStorage.setItem("teddy", JSON.stringify(teddiesStorage));
+      localStorage.teddy = JSON.stringify(teddiesStorage);
     }
     // si le localStorage est vide
     else {
