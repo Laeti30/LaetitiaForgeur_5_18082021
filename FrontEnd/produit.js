@@ -113,7 +113,7 @@ const teddyDisplay = async () => {
       price: teddy.price,
       img: teddyImg.src,
       quantity: teddyQuantityInput.value,
-      id: teddy._id,
+      _id: teddy._id,
     };
 
     let teddiesStorage = JSON.parse(localStorage.getItem("teddy"));

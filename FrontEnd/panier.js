@@ -389,14 +389,41 @@ const cartConfirmation = async () => {
   await formChecker;
   document.querySelector("form").addEventListener("submit", (e) => {
     e.preventDefault();
-    // Création de l'objet contact pour envoi au backend
-    const contact = {
-      firstName: document.getElementById("firstName").value,
-      lastName: document.getElementById("lastName").value,
-      address: document.getElementById("address").value,
-      city: city,
-      email: email,
+    //Création des constantes pour envoi au backend
+    let totalCart = [];
+    totalCart.push(teddiesCart);
+
+    // for (m = 0; m < teddiesCart.length; m++) {
+    //   const idTeddy = {
+    //     _id: teddiesCart[m]._id,
+    //   };
+    //   totalCart.push(idTeddy);
+    // }
+
+    let firstName = document.getElementById("firstName").value;
+    let lastName = document.getElementById("lastName").value;
+    let address = document.getElementById("address").value;
+
+    // Création de l'objet pour envoi au backend
+    const order = {
+      contact: {
+        firstName: firstName,
+        lastName: lastName,
+        address: address,
+        city: city,
+        email: email,
+      },
+      products: totalCart,
     };
+    // console.log(typeof firstName);
+    // console.log(typeof lastName);
+    // console.log(typeof address);
+    // console.log(typeof city);
+    // console.log(typeof email);
+
+    console.log(totalCart);
+    console.log(order);
+
     // Remise à zéro des valeurs des inputs
     document
       .querySelectorAll(
@@ -410,31 +437,16 @@ const cartConfirmation = async () => {
     // city = null;
     // email = null;
 
-    //Création du tableau de produits pour envoi au backend
-    let totalCart = [];
-    totalCart.push(teddiesCart);
-    console.log(teddiesCart);
-    console.log(totalCart);
-    console.log(contact);
-    // Création de l'objet pour envoi au backend
-    const order = {
-      contact,
-      totalCart,
-    };
-
-    //console.log(order);
     // Envoi des données au backend
-    const sending = {
+    const init = {
       method: "POST",
+      body: JSON.stringify(order),
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(contact, totalCart),
-      mode: "cors",
-      credentials: "same-origin",
     };
 
-    fetch("http://localhost:3000/api/teddies/order", sending)
+    fetch("http://localhost:3000/api/teddies/order", init)
       .then((res) => res.json())
       .then((data) => console.log(data))
       .catch((error) => console.log(err));
