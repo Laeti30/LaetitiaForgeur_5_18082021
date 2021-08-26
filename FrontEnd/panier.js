@@ -393,7 +393,7 @@ const cartConfirmation = async () => {
     let totalPrice = document.querySelector(".totalAmount").innerText;
     totalPrice = totalPrice.split(": ");
 
-    //Création des constantes pour envoi au backend
+    // Création des constantes pour envoi au backend
     let totalCart = [];
     for (m = 0; m < teddiesCart.length; m++) {
       totalCart.push(teddiesCart[m]._id);
@@ -422,7 +422,7 @@ const cartConfirmation = async () => {
       )
       .forEach((input) => (input.value = ""));
 
-    // Envoi des données au backend
+    // Création des options de la requête fetch
     const init = {
       method: "POST",
       body: JSON.stringify(order),
@@ -431,6 +431,7 @@ const cartConfirmation = async () => {
       },
     };
 
+    // Envoi des données au backend
     fetch("http://localhost:3000/api/teddies/order", init)
       .then((res) => res.json())
       .then((data) => {
@@ -443,11 +444,11 @@ const cartConfirmation = async () => {
         localStorage.setItem("contact", JSON.stringify(data.contact));
         // On ajoute le montant total dans le localSotrage
         localStorage.setItem("totalAmount", totalPrice[1]);
+        // Redirection vers la page de confirmation
+        document.location.href = "confirmation.html";
       })
       .catch((error) => console.log(error));
   });
 };
 
 cartConfirmation();
-
-// ----------------- Envoi des données au serveur ---------------- //

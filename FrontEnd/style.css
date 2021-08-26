@@ -420,3 +420,32 @@ form label {
   border-radius: 0.3rem;
   padding: 5px 0 5px 10px;
 }
+
+/*************** Page de confirmation *****************/
+.confirmOrder {
+  color: white;
+  font-family: "Dancing Script";
+  font-size: 1.8em;
+  margin-top: 20px;
+}
+
+.confirmOrder span {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.deliveryData {
+  color: white;
+  margin: 50px auto;
+  font-size: 1.25em;
+  line-height: 1.5;
+}
+
+.deliveryData h3 {
+  /* font-family: "Dancing Script"; */
+  font-size: 1.3em;
+}
+
+.deliveryData p {
+  font-family: "Dancing Script";
+  font-size: 1.5em;
+}
