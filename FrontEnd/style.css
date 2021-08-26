@@ -168,7 +168,7 @@ header a {
 
 header h1 {
   font-size: 3em;
-  padding: 0 0 20px 80px;
+  padding: 0 20px 20px 80px;
   margin: 0;
   line-height: 1;
 }
@@ -258,7 +258,7 @@ footer a:hover {
 /*************** Page produit *****************/
 .teddyProduct {
   width: 50%;
-  min-width: 300px;
+  min-width: 650px;
   background-color: white;
   height: auto;
   border-radius: 15px;
@@ -276,8 +276,9 @@ footer a:hover {
 }
 
 .teddyCardBody {
-  padding: 10px 20px;
+  padding: 10px 20px 0px;
   font-family: "Dancing Script", cursive;
+  text-align: center;
 }
 
 .teddyCardBody h3 {
@@ -318,7 +319,8 @@ footer a:hover {
 .btnContainer {
   display: flex;
   justify-content: space-around;
-  margin: 0 auto 30px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .btnContainer a {
@@ -327,20 +329,27 @@ footer a:hover {
   border-radius: 25px;
   padding: 10px 20px;
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
 .confirmBox {
   background-color: rgb(34, 146, 34);
   color: white;
+  padding: 5px 0;
   width: 80%;
-  font-size: 0.5em;
-  padding: 5px 20px;
+  margin: 0 auto;
   border-radius: 15px;
-  text-align: center;
   opacity: 0;
 }
 
 /*************** Page panier *****************/
+
+.motivation {
+  color: white;
+  font-family: "Dancing Script";
+  font-size: 1.8em;
+  margin-top: 20px;
+}
 .tableCart {
   width: 80%;
   margin: 0 auto;
@@ -448,4 +457,43 @@ form label {
 .deliveryData p {
   font-family: "Dancing Script";
   font-size: 1.5em;
+}
+
+/*************** Media Queries *****************/
+/* Format tablette */
+/* @media all and (max-width: 1144px) {} */
+/* Format mobile */
+
+@media all and (max-width: 768px) {
+  header a {
+    padding: 0 20px 0 0;
+  }
+  .teddyCard {
+    width: 90%;
+  }
+  .teddyCardImg {
+    height: 300px;
+  }
+  .teddyProduct {
+    width: 90%;
+    min-width: 300px;
+  }
+}
+
+@media all and (max-width: 460px) {
+  #logo {
+    font-size: 3.5em;
+  }
+  header h1 {
+    font-size: 2.3em;
+  }
+  .teddyProduct {
+    width: 95%;
+    min-width: none;
+  }
+  .btnContainer {
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+  }
 }

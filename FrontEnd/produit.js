@@ -87,7 +87,7 @@ const teddyDisplay = async () => {
 
   let confirmBox = document.createElement("p");
   teddyCardBody.appendChild(confirmBox);
-  confirmBox.innerText = "Votre produit a été ajouté au panier";
+  confirmBox.innerText = "Le produit a été ajouté au panier";
   confirmBox.classList.add("confirmBox");
 
   let btnContainer = document.createElement("div");

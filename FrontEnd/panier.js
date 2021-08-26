@@ -23,6 +23,12 @@ function emptyCart() {
   let emptyCart = document.createElement("h2");
   document.querySelector("main").appendChild(emptyCart);
   emptyCart.innerHTML = `Votre panier est vide.`;
+
+  let motivationText = document.createElement("p");
+  document.querySelector("main").appendChild(motivationText);
+  motivationText.classList.add("motivation");
+  motivationText.innerText =
+    "N'hésitez pas à vous rendre sur notre page d'accueil afin de le remplir !";
 }
 
 // ------------------- Création du tableau de produits -------------------- //
