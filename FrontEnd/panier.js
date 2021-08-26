@@ -389,28 +389,14 @@ const cartConfirmation = async () => {
   await formChecker;
   document.querySelector("form").addEventListener("submit", (e) => {
     e.preventDefault();
+    // Récupération du prix total
+    let totalPrice = document.querySelector(".totalAmount").innerText;
+    totalPrice = totalPrice.split(": ");
+
     //Création des constantes pour envoi au backend
     let totalCart = [];
-    totalCart.push(teddiesCart);
-
-    // for (m = 0; m < teddiesCart.length; m++) {
-    //   const idTeddy = {
-    //     _id: teddiesCart[m]._id,
-    //   };
-    //   totalCart.push(idTeddy);
-    // }
-
-    for (m = 0; m < totalCart.length; m++) {
-      let test1 = totalCart[m].name;
-      let test2 = totalCart[m].price;
-      let test3 = totalCart[m].img;
-      let test4 = totalCart[m].quantity;
-      let test5 = totalCart[m]._id;
-      console.log(typeof test1);
-      console.log(typeof test2);
-      console.log(typeof test3);
-      console.log(typeof test4);
-      console.log(typeof test5);
+    for (m = 0; m < teddiesCart.length; m++) {
+      totalCart.push(teddiesCart[m]._id);
     }
 
     let firstName = document.getElementById("firstName").value;
@@ -428,14 +414,6 @@ const cartConfirmation = async () => {
       },
       products: totalCart,
     };
-    // console.log(typeof firstName);
-    // console.log(typeof lastName);
-    // console.log(typeof address);
-    // console.log(typeof city);
-    // console.log(typeof email);
-
-    console.log(totalCart);
-    console.log(order);
 
     // Remise à zéro des valeurs des inputs
     document
@@ -443,12 +421,6 @@ const cartConfirmation = async () => {
         'input[type="text"], input[type="tel"], input[type="email"]'
       )
       .forEach((input) => (input.value = ""));
-    // // Remise à zéro des valeurs de l'object contact
-    // firstName = null;
-    // lastName = null;
-    // address = null;
-    // city = null;
-    // email = null;
 
     // Envoi des données au backend
     const init = {
@@ -461,8 +433,18 @@ const cartConfirmation = async () => {
 
     fetch("http://localhost:3000/api/teddies/order", init)
       .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.log(err));
+      .then((data) => {
+        console.log(data);
+        // On supprime le panier du localStorage
+        localStorage.clear();
+        // On ajoute l'orderId au localStorage
+        localStorage.setItem("orderID", data.orderId);
+        // On ajoute les données de contact dans le localStorage
+        localStorage.setItem("contact", JSON.stringify(data.contact));
+        // On ajoute le montant total dans le localSotrage
+        localStorage.setItem("totalAmount", totalPrice[1]);
+      })
+      .catch((error) => console.log(error));
   });
 };
 
