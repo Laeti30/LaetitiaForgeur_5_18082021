@@ -326,10 +326,12 @@ footer a:hover {
 .btnContainer a {
   color: white;
   background-color: #6e3300;
-  border-radius: 25px;
-  padding: 10px 20px;
+  border-radius: 35px;
+  padding: 15px 30px;
   cursor: pointer;
   margin-bottom: 20px;
+  box-shadow: 10px 5px 5px rgba(95, 95, 95, 0.5);
+  font-size: 1.1em;
 }
 
 .confirmBox {
@@ -348,7 +350,7 @@ footer a:hover {
   color: white;
   font-family: "Dancing Script";
   font-size: 1.8em;
-  margin-top: 20px;
+  padding: 20px 20px 0;
 }
 .tableCart {
   width: 80%;
@@ -384,7 +386,6 @@ footer a:hover {
   padding: 0.75rem 1.25rem;
   font-size: 1.25rem;
   line-height: 1.5;
-  border-radius: 0.3rem;
 }
 
 /*************** Formulaire *****************/
@@ -402,6 +403,7 @@ form {
   padding-left: 35px;
   padding-right: 35px;
   margin-bottom: 20px;
+  min-width: 400px;
 }
 
 form label {
@@ -431,6 +433,10 @@ form label {
 }
 
 /*************** Page de confirmation *****************/
+.confirmContainer {
+  padding: 20px 20px;
+}
+
 .confirmOrder {
   color: white;
   font-family: "Dancing Script";
@@ -460,10 +466,15 @@ form label {
 }
 
 /*************** Media Queries *****************/
-/* Format tablette */
-/* @media all and (max-width: 1144px) {} */
-/* Format mobile */
+/* Format petit écran */
+@media all and (max-width: 1144px) {
+  .tableCart,
+  form {
+    width: 95%;
+  }
+}
 
+/* Format tablette */
 @media all and (max-width: 768px) {
   header a {
     padding: 0 20px 0 0;
@@ -478,8 +489,13 @@ form label {
     width: 90%;
     min-width: 300px;
   }
+  .btnContainer {
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+  }
 }
-
+/* Format mobile */
 @media all and (max-width: 460px) {
   #logo {
     font-size: 3.5em;
@@ -489,11 +505,11 @@ form label {
   }
   .teddyProduct {
     width: 95%;
-    min-width: none;
+    min-width: 5px;
   }
-  .btnContainer {
-    flex-direction: column;
-    width: 80%;
-    margin: 0 auto;
+  .formCol {
+    padding-right: 15px;
+    padding-left: 15px;
+    min-width: 250px;
   }
 }

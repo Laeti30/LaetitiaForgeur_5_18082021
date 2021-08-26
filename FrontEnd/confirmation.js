@@ -5,6 +5,7 @@ let contactData = JSON.parse(localStorage.getItem("contact"));
 function confirmDisplay() {
   let confirmBox = document.createElement("div");
   document.querySelector("main").appendChild(confirmBox);
+  confirmBox.classList.add("confirmContainer");
 
   let thank = document.createElement("h2");
   confirmBox.appendChild(thank);

@@ -33,8 +33,15 @@ function emptyCart() {
 
 // ------------------- Création du tableau de produits -------------------- //
 function tableCreate() {
+  let tableBox = document.createElement("section");
+  document.querySelector("main").appendChild(tableBox);
+
+  let responsiveTable = document.createElement("div");
+  tableBox.appendChild(responsiveTable);
+  responsiveTable.classList.add("table-responsive");
+
   let table = document.createElement("table");
-  document.querySelector("main").appendChild(table);
+  responsiveTable.appendChild(table);
   table.classList.add("table", "tableCart", "table-bordered");
 
   let header = document.createElement("thead");
@@ -93,14 +100,15 @@ function tableCreate() {
 
   // Calcul du montant total
   let totalAmountText = document.createElement("p");
-  document.querySelector("main").appendChild(totalAmountText);
+  tableBox.appendChild(totalAmountText);
   totalAmountText.classList.add("totalAmount");
 
   // Création du bouton reset
-  let resetButton = document.createElement("span");
-  document.querySelector("main").appendChild(resetButton);
+  let resetButton = document.createElement("input");
+  tableBox.appendChild(resetButton);
+  resetButton.type = "button";
   resetButton.classList.add("reset");
-  resetButton.innerHTML = "Vider le panier";
+  resetButton.value = "Vider le panier";
 }
 
 // ------------------- Supprimer un produit -------------------- //
@@ -151,13 +159,16 @@ totalAmountCount();
 
 //----------------- Création du formulaire ----------------- //
 function formCreation() {
-  let formTitle = document.createElement("h2");
-  document.querySelector("main").appendChild(formTitle);
-  formTitle.innerText = "Vos coordonnées";
-  formTitle.classList.add("formTitle");
+  let formBox = document.createElement("section");
+  document.querySelector("main").appendChild(formBox);
 
   let form = document.createElement("form");
-  document.querySelector("main").appendChild(form);
+  formBox.appendChild(form);
+
+  let formTitle = document.createElement("h2");
+  form.appendChild(formTitle);
+  formTitle.innerText = "Vos coordonnées";
+  formTitle.classList.add("formTitle");
 
   // 1er ligne du formulaire - Nom & prénom
   let formRow1 = document.createElement("div");
