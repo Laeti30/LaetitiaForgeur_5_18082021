@@ -400,6 +400,19 @@ const cartConfirmation = async () => {
     //   totalCart.push(idTeddy);
     // }
 
+    for (m = 0; m < totalCart.length; m++) {
+      let test1 = totalCart[m].name;
+      let test2 = totalCart[m].price;
+      let test3 = totalCart[m].img;
+      let test4 = totalCart[m].quantity;
+      let test5 = totalCart[m]._id;
+      console.log(typeof test1);
+      console.log(typeof test2);
+      console.log(typeof test3);
+      console.log(typeof test4);
+      console.log(typeof test5);
+    }
+
     let firstName = document.getElementById("firstName").value;
     let lastName = document.getElementById("lastName").value;
     let address = document.getElementById("address").value;
