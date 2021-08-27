@@ -1,5 +1,5 @@
 ## Projet 5 - Construisez un site e-commerce
-# Oricono #
+# Orinoco #
 
 Orinoco est une entreprise de commerce en ligne. 
 Elle souhaite se démarquer des grands site e-commerce comme Amazon en créant des applications thématiques ne vendant qu’un seul groupe de produits. 
