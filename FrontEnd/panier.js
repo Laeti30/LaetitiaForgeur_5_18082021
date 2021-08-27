@@ -66,31 +66,32 @@ function tableCreate() {
     tbody.appendChild(teddyRow);
 
     // Remplir chaque ligne avec les données du nounours
+    // Nom du nounours
     let teddyName = document.createElement("td");
     teddyRow.appendChild(teddyName);
     teddyName.scope = "row";
     teddyName.innerText = teddiesCart[i].name;
-
+    // Image du nounours
     let teddyImgCell = document.createElement("td");
     teddyRow.appendChild(teddyImgCell);
     let teddyImg = document.createElement("img");
     teddyImgCell.appendChild(teddyImg);
     teddyImg.src = teddiesCart[i].img;
-
+    // Prix unitaire du nounours
     let teddyPrice = document.createElement("td");
     teddyRow.appendChild(teddyPrice);
     teddyPrice.innerHTML = (teddiesCart[i].price / 100).toFixed(2) + " €";
-
+    // Quantité de nounours
     let teddyQuantity = document.createElement("td");
     teddyRow.appendChild(teddyQuantity);
     teddyQuantity.innerHTML = teddiesCart[i].quantity;
-
+    // Prix total pour ce nounours en fonction de la quantité
     let teddyTotalPrice = document.createElement("td");
     teddyRow.appendChild(teddyTotalPrice);
     let teddyQuantityNumber = parseInt(teddiesCart[i].quantity);
     teddyTotalPrice.innerHTML =
       ((teddiesCart[i].price * teddyQuantityNumber) / 100).toFixed(2) + " €";
-
+    // Supprimer ce nounours
     let teddyDelete = document.createElement("td");
     teddyRow.appendChild(teddyDelete);
     let teddyDeleteImg = document.createElement("i");
@@ -98,7 +99,7 @@ function tableCreate() {
     teddyDeleteImg.classList.add("fas", "fa-trash-alt");
   }
 
-  // Calcul du montant total
+  // Création du champ pour le montant total
   let totalAmountText = document.createElement("p");
   tableBox.appendChild(totalAmountText);
   totalAmountText.classList.add("totalAmount");
@@ -119,8 +120,10 @@ function removeItem() {
     btnDelete[j].addEventListener("click", (e) => {
       e.preventDefault();
       if ((teddiesCart[j] = btnDelete[j])) {
+        // Suppression du produit dans le tableau
         teddiesCart.splice(j, 1);
       }
+      // Mise à jour du localStorage => en réinjectant le nouveau tableau
       localStorage.teddy = JSON.stringify(teddiesCart);
       // Rechargement de la page
       window.location.href = "panier.html";
@@ -137,7 +140,6 @@ function removeItems() {
 }
 
 //----------------- Calculer le montant total ----------------- //
-
 const totalAmountCount = async () => {
   await tableCreate;
   // Récupération de tous les montants dans un tableau
@@ -223,28 +225,10 @@ function formCreation() {
   addressInput.classList.add("form-control");
   addressInput.required = true;
 
-  // 3eme ligne du formulaire - Code postal & ville
+  // 3eme ligne du formulaire - Ville & email
   let formRow3 = document.createElement("div");
   form.appendChild(formRow3);
   formRow3.classList.add("row");
-  // Code postal
-  let postalCodeBox = document.createElement("div");
-  formRow3.appendChild(postalCodeBox);
-  postalCodeBox.classList.add("col", "formCol");
-  let postalCodeLabel = document.createElement("label");
-  postalCodeBox.appendChild(postalCodeLabel);
-  postalCodeLabel.for = "postalCode";
-  postalCodeLabel.innerText = "Code postal";
-  let postalCodeInput = document.createElement("input");
-  postalCodeBox.appendChild(postalCodeInput);
-  postalCodeInput.id = "postalCode";
-  postalCodeInput.type = "text";
-  postalCodeInput.required = true;
-  postalCodeInput.classList.add("form-control");
-  let postalCodeWarning = document.createElement("span");
-  postalCodeBox.appendChild(postalCodeWarning);
-  postalCodeWarning.id = "postalCodeWarning";
-  postalCodeWarning.classList.add("form-text");
   // Ville
   let cityBox = document.createElement("div");
   formRow3.appendChild(cityBox);
@@ -263,33 +247,9 @@ function formCreation() {
   cityBox.appendChild(cityWarning);
   cityWarning.id = "cityWarning";
   cityWarning.classList.add("form-text");
-
-  // 4eme ligne du formulaire - Numéro de téléphone & email
-  let formRow4 = document.createElement("div");
-  form.appendChild(formRow4);
-  formRow4.classList.add("row");
-  // Numéro de téléphone
-  let phoneNumberBox = document.createElement("div");
-  formRow4.appendChild(phoneNumberBox);
-  phoneNumberBox.classList.add("col", "formCol");
-  let phoneNumberLabel = document.createElement("label");
-  phoneNumberBox.appendChild(phoneNumberLabel);
-  phoneNumberLabel.for = "phoneNumber";
-  phoneNumberLabel.innerText = "Numéro de téléphone";
-  let phoneNumberInput = document.createElement("input");
-  phoneNumberBox.appendChild(phoneNumberInput);
-  phoneNumberInput.id = "phoneNumber";
-  phoneNumberInput.type = "tel";
-  phoneNumberInput.placeholder = "0678546235";
-  phoneNumberInput.required = true;
-  phoneNumberInput.classList.add("form-control");
-  let phoneNumberWarning = document.createElement("span");
-  phoneNumberBox.appendChild(phoneNumberWarning);
-  phoneNumberWarning.id = "phoneNumberWarning";
-  phoneNumberWarning.classList.add("form-text");
   // Email
   let emailBox = document.createElement("div");
-  formRow4.appendChild(emailBox);
+  formRow3.appendChild(emailBox);
   emailBox.classList.add("col", "formCol");
   let emailLabel = document.createElement("label");
   emailBox.appendChild(emailLabel);
@@ -307,20 +267,20 @@ function formCreation() {
   emailWarning.id = "emailWarning";
   emailWarning.classList.add("form-text");
 
-  // 5eme ligne du formulaire - Bouton Submit
-  let formRow5 = document.createElement("div");
-  form.appendChild(formRow5);
-  formRow5.classList.add("row");
+  // 4eme ligne du formulaire - Bouton Submit
+  let formRow4 = document.createElement("div");
+  form.appendChild(formRow4);
+  formRow4.classList.add("row");
   // Bouton de confirmation de commande
   let submitButton = document.createElement("input");
-  formRow5.appendChild(submitButton);
+  formRow4.appendChild(submitButton);
   submitButton.type = "Submit";
   submitButton.value = "Valider la commande";
   submitButton.classList.add("submitButton");
 }
 
 //----------------- Vérification des données du formulaire et stockage des données ----------------- //
-let email, phone, postCode, city;
+let email, city;
 // Création d'une fonction pour l'affichage des erreurs
 const errorDisplay = (tag, message, valid) => {
   const span = document.getElementById(tag + "Warning");
@@ -346,36 +306,6 @@ function emailChecker() {
   });
 }
 
-// Vérification et stockage du numéro de téléphone
-function phoneChecker() {
-  document.getElementById("phoneNumber").addEventListener("input", (e) => {
-    if (!e.target.value.match(/^0[1-8][0-9]{8}$/)) {
-      errorDisplay("phoneNumber", "Le numéro n'est pas valide");
-      phone = null;
-    } else {
-      errorDisplay("phoneNumber", "", true);
-      phone = e.target.value;
-    }
-  });
-}
-
-// Vérification et stockage du code postal
-function postalCodeChecker() {
-  document.getElementById("postalCode").addEventListener("input", (e) => {
-    if (
-      !e.target.value.match(
-        /^((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}$/
-      )
-    ) {
-      errorDisplay("postalCode", "Le code postal n'est pas valide");
-      postCode = null;
-    } else {
-      errorDisplay("postalCode", "", true);
-      postCode = e.target.value;
-    }
-  });
-}
-
 // Vérification et stockage de la ville
 function cityChecker() {
   document.getElementById("city").addEventListener("input", (e) => {
@@ -393,8 +323,6 @@ function cityChecker() {
 const formChecker = async () => {
   await formCreation;
   emailChecker();
-  phoneChecker();
-  postalCodeChecker();
   cityChecker();
 };
 
