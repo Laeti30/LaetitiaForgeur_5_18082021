@@ -385,8 +385,6 @@ const cartConfirmation = async () => {
         localStorage.clear();
         // On ajoute l'orderId au localStorage
         localStorage.setItem("orderID", data.orderId);
-        // On ajoute les données de contact dans le localStorage
-        localStorage.setItem("contact", JSON.stringify(data.contact));
         // On ajoute le montant total dans le localSotrage
         localStorage.setItem("totalAmount", totalPrice[1]);
         // Redirection vers la page de confirmation
