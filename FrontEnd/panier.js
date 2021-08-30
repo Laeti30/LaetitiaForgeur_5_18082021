@@ -365,7 +365,7 @@ function addressChecker() {
 // Vérification et stockage de l'email
 function emailChecker() {
   document.getElementById("email").addEventListener("input", (e) => {
-    if (!e.target.value.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i)) {
+    if (!e.target.value.match(/^[\w_-\.]+@[\w-]+\.[a-z]{2,4}$/i)) {
       errorDisplay("email", "L'email n'est pas valide");
       email = null;
     } else {
