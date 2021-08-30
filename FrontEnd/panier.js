@@ -267,6 +267,13 @@ function formCreation() {
   emailWarning.id = "emailWarning";
   emailWarning.classList.add("form-text");
 
+  // Message d'erreur si un champ est vide ou avec des données non valide
+  let noSending = document.createElement("p");
+  form.appendChild(noSending);
+  noSending.classList.add("row", "sendingError");
+  noSending.innerHTML =
+    "Merci de saisir tous les champs avec des données valides";
+
   // 4eme ligne du formulaire - Bouton Submit
   let formRow4 = document.createElement("div");
   form.appendChild(formRow4);
@@ -309,12 +316,17 @@ function emailChecker() {
 // Vérification et stockage de la ville
 function cityChecker() {
   document.getElementById("city").addEventListener("input", (e) => {
-    if (!e.target.value.match(/^[a-z- ]+$/i)) {
+    if (
+      !e.target.value.match(
+        /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/i
+      )
+    ) {
       errorDisplay("city", "La ville n'est pas valide");
       city = null;
     } else {
       errorDisplay("city", "", true);
       city = e.target.value;
+      console.log(city);
     }
   });
 }
@@ -348,49 +360,61 @@ const cartConfirmation = async () => {
     let lastName = document.getElementById("lastName").value;
     let address = document.getElementById("address").value;
 
-    // Création de l'objet pour envoi au backend
-    const order = {
-      contact: {
-        firstName: firstName,
-        lastName: lastName,
-        address: address,
-        city: city,
-        email: email,
-      },
-      products: totalCart,
-    };
+    // Vérification que les champs soient remplis
+    if (
+      firstName == null ||
+      lastName == null ||
+      address == null ||
+      city == null ||
+      email == null
+    ) {
+      document.querySelector(".sendingError").style.opacity = 1;
+      console.log("un champ est vide");
+    } else {
+      // Création de l'objet pour envoi au backend
+      const order = {
+        contact: {
+          firstName: firstName,
+          lastName: lastName,
+          address: address,
+          city: city,
+          email: email,
+        },
+        products: totalCart,
+      };
 
-    // Remise à zéro des valeurs des inputs
-    document
-      .querySelectorAll(
-        'input[type="text"], input[type="tel"], input[type="email"]'
-      )
-      .forEach((input) => (input.value = ""));
+      // Remise à zéro des valeurs des inputs
+      document
+        .querySelectorAll(
+          'input[type="text"], input[type="tel"], input[type="email"]'
+        )
+        .forEach((input) => (input.value = ""));
 
-    // Création des options de la requête fetch
-    const init = {
-      method: "POST",
-      body: JSON.stringify(order),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+      // Création des options de la requête fetch
+      const init = {
+        method: "POST",
+        body: JSON.stringify(order),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
 
-    // Envoi des données au backend
-    fetch("http://localhost:3000/api/teddies/order", init)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        // On supprime le panier du localStorage
-        localStorage.clear();
-        // On ajoute l'orderId au localStorage
-        localStorage.setItem("orderID", data.orderId);
-        // On ajoute le montant total dans le localSotrage
-        localStorage.setItem("totalAmount", totalPrice[1]);
-        // Redirection vers la page de confirmation
-        document.location.href = "confirmation.html";
-      })
-      .catch((error) => console.log(error));
+      // Envoi des données au backend
+      fetch("http://localhost:3000/api/teddies/order", init)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          // On supprime le panier du localStorage
+          localStorage.clear();
+          // On ajoute l'orderId au localStorage
+          localStorage.setItem("orderID", data.orderId);
+          // On ajoute le montant total dans le localSotrage
+          localStorage.setItem("totalAmount", totalPrice[1]);
+          // Redirection vers la page de confirmation
+          document.location.href = "confirmation.html";
+        })
+        .catch((error) => console.log(error));
+    }
   });
 };
 
