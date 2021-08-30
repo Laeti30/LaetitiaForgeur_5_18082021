@@ -190,6 +190,10 @@ function formCreation() {
   firstNameInput.type = "text";
   firstNameInput.classList.add("form-control");
   firstNameInput.required = true;
+  let firstNameWarning = document.createElement("span");
+  firstNameBox.appendChild(firstNameWarning);
+  firstNameWarning.id = "firstNameWarning";
+  firstNameWarning.classList.add("form-text");
   // Nom de famille
   let lastNameBox = document.createElement("div");
   formRow1.appendChild(lastNameBox);
@@ -204,6 +208,10 @@ function formCreation() {
   lastNameInput.type = "text";
   lastNameInput.classList.add("form-control");
   lastNameInput.required = true;
+  let lastNameWarning = document.createElement("span");
+  lastNameBox.appendChild(lastNameWarning);
+  lastNameWarning.id = "lastNameWarning";
+  lastNameWarning.classList.add("form-text");
 
   // 2eme ligne du formulaire - Adresse
   let formRow2 = document.createElement("div");
@@ -224,6 +232,10 @@ function formCreation() {
   addressInput.placeholder = "Merci de saisir le numéro et la rue";
   addressInput.classList.add("form-control");
   addressInput.required = true;
+  let addressWarning = document.createElement("span");
+  addressBox.appendChild(addressWarning);
+  addressWarning.id = "addressWarning";
+  addressWarning.classList.add("form-text");
 
   // 3eme ligne du formulaire - Ville & email
   let formRow3 = document.createElement("div");
@@ -287,7 +299,7 @@ function formCreation() {
 }
 
 //----------------- Vérification des données du formulaire et stockage des données ----------------- //
-let email, city;
+let firstName, lastName, address, email, city;
 // Création d'une fonction pour l'affichage des erreurs
 const errorDisplay = (tag, message, valid) => {
   const span = document.getElementById(tag + "Warning");
@@ -300,6 +312,56 @@ const errorDisplay = (tag, message, valid) => {
   }
 };
 
+// Vérification et stockage du prénom
+function firstNameChecker() {
+  document.getElementById("firstName").addEventListener("input", (e) => {
+    if (
+      !e.target.value.match(
+        /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/i
+      )
+    ) {
+      errorDisplay("firstName", "Le prénom n'est pas valide");
+      firstName = null;
+    } else {
+      errorDisplay("firstName", "", true);
+      firstName = e.target.value;
+    }
+  });
+}
+
+// Vérification et stockage du nom de famille
+function lastNameChecker() {
+  document.getElementById("lastName").addEventListener("input", (e) => {
+    if (
+      !e.target.value.match(
+        /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/i
+      )
+    ) {
+      errorDisplay("lastName", "Le nom n'est pas valide");
+      lastName = null;
+    } else {
+      errorDisplay("lastName", "", true);
+      lastName = e.target.value;
+    }
+  });
+}
+
+// Vérification et stockage de l'adresse
+function addressChecker() {
+  document.getElementById("address").addEventListener("input", (e) => {
+    if (
+      !e.target.value.match(
+        /^[\w'\-,.][^_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/i
+      )
+    ) {
+      errorDisplay("address", "L'adresse n'est pas valide");
+      address = null;
+    } else {
+      errorDisplay("address", "", true);
+      address = e.target.value;
+    }
+  });
+}
 // Vérification et stockage de l'email
 function emailChecker() {
   document.getElementById("email").addEventListener("input", (e) => {
@@ -326,7 +388,6 @@ function cityChecker() {
     } else {
       errorDisplay("city", "", true);
       city = e.target.value;
-      console.log(city);
     }
   });
 }
@@ -334,6 +395,9 @@ function cityChecker() {
 // Lancement de fonctions de vérification
 const formChecker = async () => {
   await formCreation;
+  firstNameChecker();
+  lastNameChecker();
+  addressChecker();
   emailChecker();
   cityChecker();
 };
@@ -356,11 +420,7 @@ const cartConfirmation = async () => {
       totalCart.push(teddiesCart[m]._id);
     }
 
-    let firstName = document.getElementById("firstName").value;
-    let lastName = document.getElementById("lastName").value;
-    let address = document.getElementById("address").value;
-
-    // Vérification que les champs soient remplis
+    // Vérifier que les champs soient remplis
     if (
       firstName == null ||
       lastName == null ||
