@@ -1,6 +1,7 @@
 let params = new URL(document.location).searchParams;
 let id = params.get("id");
 let teddy = [];
+let teddyAdded;
 
 // Récupération des données du nounours
 const fetchTeddy = async () => {
@@ -108,46 +109,51 @@ const teddyDisplay = async () => {
 
   btnCart.addEventListener("click", (e) => {
     e.preventDefault();
-    let teddyAdded = {
+    teddyAdded = {
       name: teddyName.innerText,
       price: teddy.price,
       img: teddyImg.src,
       quantity: teddyQuantityInput.value,
       _id: teddy._id,
     };
-
-    let teddiesStorage = JSON.parse(localStorage.getItem("teddy"));
-    // s'il y a déjà des nounours dans le localStorage
-    if (teddiesStorage !== null) {
-      for (let j in teddiesStorage) {
-        if (teddiesStorage[j].name == teddyAdded.name) {
-          teddiesStorage.splice(j, 1);
-        }
-      }
-      teddiesStorage.push(teddyAdded);
-      localStorage.teddy = JSON.stringify(teddiesStorage);
-    }
-    // si le localStorage est vide
-    else {
-      teddiesStorage = [];
-      teddiesStorage.push(teddyAdded);
-      localStorage.setItem("teddy", JSON.stringify(teddiesStorage));
-    }
-
-    document.querySelector(".confirmBox").animate(
-      [
-        //keyframes
-        { opacity: "0" },
-        { opacity: "1" },
-        { opacity: "1" },
-        { opacity: "0" },
-      ],
-      {
-        // timing options
-        duration: 5000,
-      }
-    );
+    saveData();
   });
 };
 
 teddyDisplay();
+
+const saveData = async () => {
+  await teddyDisplay;
+
+  let teddiesStorage = JSON.parse(localStorage.getItem("teddy"));
+  // s'il y a déjà des nounours dans le localStorage
+  if (teddiesStorage !== null) {
+    for (let j in teddiesStorage) {
+      if (teddiesStorage[j].name == teddyAdded.name) {
+        teddiesStorage.splice(j, 1);
+      }
+    }
+    teddiesStorage.push(teddyAdded);
+    localStorage.teddy = JSON.stringify(teddiesStorage);
+  }
+  // si le localStorage est vide
+  else {
+    teddiesStorage = [];
+    teddiesStorage.push(teddyAdded);
+    localStorage.setItem("teddy", JSON.stringify(teddiesStorage));
+  }
+
+  document.querySelector(".confirmBox").animate(
+    [
+      //keyframes
+      { opacity: "0" },
+      { opacity: "1" },
+      { opacity: "1" },
+      { opacity: "0" },
+    ],
+    {
+      // timing options
+      duration: 5000,
+    }
+  );
+};
