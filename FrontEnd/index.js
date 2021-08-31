@@ -4,7 +4,7 @@ const fetchTeddies = async () => {
   await fetch("http://localhost:3000/api/teddies")
     .then((res) => res.json())
     .then((data) => (teddies = data))
-    .catch((error) => console.log(err));
+    .catch((error) => console.log(error));
 
   // console.log(teddies);
 };
