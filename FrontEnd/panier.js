@@ -356,9 +356,7 @@ function lastNameChecker() {
 function addressChecker() {
   document.getElementById("address").addEventListener("input", (e) => {
     if (
-      !e.target.value.match(
-        /^[\w'\-,.][^_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/i
-      )
+      !e.target.value.match(/^[\w'\-,.][^_!¡?÷?¿/\\+=@#$%ˆ&*{}|~<>;:[\]]{2,}$/i)
     ) {
       errorDisplay("address", "L'adresse n'est pas valide");
       address = null;
