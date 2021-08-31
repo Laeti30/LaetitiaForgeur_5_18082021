@@ -443,7 +443,7 @@ form label {
 .sendingError {
   background-color: red;
   color: white;
-  padding: 5px 0;
+  padding: 10px 0;
   width: 80%;
   margin: 0 auto;
   border-radius: 15px;

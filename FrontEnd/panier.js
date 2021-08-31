@@ -433,8 +433,19 @@ const cartConfirmation = async () => {
       city == null ||
       email == null
     ) {
-      document.querySelector(".sendingError").style.opacity = 1;
-      console.log("un champ est vide");
+      document.querySelector(".sendingError").animate(
+        [
+          //keyframes
+          { opacity: "0" },
+          { opacity: "1" },
+          { opacity: "1" },
+          { opacity: "0" },
+        ],
+        {
+          // timing options
+          duration: 5000,
+        }
+      );
     } else {
       // Création de l'objet pour envoi au backend
       const order = {
