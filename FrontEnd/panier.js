@@ -70,12 +70,18 @@ function tableCreate() {
     let teddyName = document.createElement("td");
     teddyRow.appendChild(teddyName);
     teddyName.scope = "row";
-    teddyName.innerText = teddiesCart[i].name;
+    let teddyNameLink = document.createElement("a");
+    teddyName.appendChild(teddyNameLink);
+    teddyNameLink.innerText = teddiesCart[i].name;
+    teddyNameLink.href = "produit.html?id=" + teddiesCart[i]._id;
     // Image du nounours
     let teddyImgCell = document.createElement("td");
     teddyRow.appendChild(teddyImgCell);
+    let teddyImgLink = document.createElement("a");
+    teddyImgCell.appendChild(teddyImgLink);
+    teddyImgLink.href = "produit.html?id=" + teddiesCart[i]._id;
     let teddyImg = document.createElement("img");
-    teddyImgCell.appendChild(teddyImg);
+    teddyImgLink.appendChild(teddyImg);
     teddyImg.src = teddiesCart[i].img;
     // Prix unitaire du nounours
     let teddyPrice = document.createElement("td");
@@ -365,7 +371,8 @@ function addressChecker() {
 // Vérification et stockage de l'email
 function emailChecker() {
   document.getElementById("email").addEventListener("input", (e) => {
-    if (!e.target.value.match(/^[\w_-\.]+@[\w-]+\.[a-z]{2,4}$/i)) {
+    if (!e.target.value.match(/^[\w\._-]+@[\w-]+\.[a-z]{2,4}$/i)) {
+      // ^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$
       errorDisplay("email", "L'email n'est pas valide");
       email = null;
     } else {
