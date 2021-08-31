@@ -1,5 +1,6 @@
 let teddies = [];
 
+// Récupération des produits disponibles à la vente
 const fetchTeddies = async () => {
   await fetch("http://localhost:3000/api/teddies")
     .then((res) => res.json())
@@ -9,9 +10,11 @@ const fetchTeddies = async () => {
   // console.log(teddies);
 };
 
+// Affichage des produits
 const teddiesDisplay = async () => {
   await fetchTeddies();
 
+  // On parcoure le tableau et pour chaque produit du tableau, on crée des champs HTML et on y place les données
   for (teddy in teddies) {
     let teddyCard = document.createElement("div");
     document.querySelector(".products").appendChild(teddyCard);

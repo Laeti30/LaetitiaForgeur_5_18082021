@@ -1,6 +1,8 @@
+// On récupère l'orderID et le montant total stockés dans le localStorage
 let orderIdData = localStorage.getItem("orderID");
 let totalAmount = localStorage.getItem("totalAmount");
 
+// Création et remplissage des champs HTML de la page de confirmation
 function confirmDisplay() {
   let confirmBox = document.createElement("div");
   document.querySelector("main").appendChild(confirmBox);

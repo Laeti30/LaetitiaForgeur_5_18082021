@@ -13,7 +13,7 @@ const fetchTeddy = async () => {
   // console.log(teddy);
 };
 
-// Affichage du nounours
+// Affichage du nounours - Création des champs et ajout des données
 const teddyDisplay = async () => {
   await fetchTeddy();
 
@@ -105,8 +105,7 @@ const teddyDisplay = async () => {
   btnCart.innerHTML = "Ajouter au panier";
   btnCart.href = "#";
 
-  //--------------Local Storage -----------------//
-
+  // Lors du clic sur le bouton "Ajouter au panier", on stocke dans le localStorage (saveData)
   btnCart.addEventListener("click", (e) => {
     e.preventDefault();
     teddyAdded = {
@@ -122,12 +121,15 @@ const teddyDisplay = async () => {
 
 teddyDisplay();
 
+// Stockage des données dans le localStorage
 const saveData = async () => {
   await teddyDisplay;
 
+  // On récupère les données du localStorage
   let teddiesStorage = JSON.parse(localStorage.getItem("teddy"));
   // s'il y a déjà des nounours dans le localStorage
   if (teddiesStorage !== null) {
+    // on vérifie si ce nounours existe déjà.   Si oui, dans les données récupérées, on supprime l'ancien et on ajoute le nouveau (push(teddyAdded)) puis on envoie au localStorage
     for (let j in teddiesStorage) {
       if (teddiesStorage[j].name == teddyAdded.name) {
         teddiesStorage.splice(j, 1);
@@ -143,6 +145,7 @@ const saveData = async () => {
     localStorage.setItem("teddy", JSON.stringify(teddiesStorage));
   }
 
+  // Affichage du message de confirmation de l'ajout au panier
   document.querySelector(".confirmBox").animate(
     [
       //keyframes
